@@ -4,14 +4,23 @@ import Lottie from 'lottie-react';
 import { AuthContext } from '../../contexts/authContext/AuthContext';
 
 const Register = () => {
-    const {register} = use(AuthContext);
-    console.log(register);
+    const {createUser} = use(AuthContext);
+    
     const handleRegister = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        // console.log(email, password);
+
+        // register user
+        createUser(email, password)
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(err => {
+            console.log(err.code);
+        })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
