@@ -3,26 +3,35 @@ import { AuthContext } from '../../contexts/authContext/AuthContext';
 import Lottie from 'lottie-react';
 import signInLottie from '../../assets/lotties/signIn.json'
 import SocialLogin from '../shared/SocialLogin';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const SignIn = () => {
-    const {signInUser} = use(AuthContext);
-        
-        const handleSignIn = e => {
-            e.preventDefault();
-            const form = e.target;
-            const email = form.email.value;
-            const password = form.password.value;
-            // console.log(email, password);
-    
-            // register user
-            signInUser(email, password)
-            .then(result => {
-                console.log(result.user);
+    const { signInUser } = use(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('location in sign in',location);
+    const from = location.state || '/'
+
+
+
+    const handleSignIn = e => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        // console.log(email, password);
+
+        // register user
+        signInUser(email, password)
+            .then(() => {
+                // console.log(result.user);
+                navigate(from)
+
             })
             .catch(err => {
                 console.log(err.code);
             })
-        }
+    }
     return (
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -43,7 +52,12 @@ const SignIn = () => {
                                 <button type='submit' className="btn btn-neutral mt-4">Sign In</button>
                             </fieldset>
                         </form>
-                        <SocialLogin></SocialLogin>
+                        <SocialLogin from={from}></SocialLogin>
+                        <div>
+                            <p>New to this Site?
+                                <Link to='/register' className='text-blue-500'> Register now</Link>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

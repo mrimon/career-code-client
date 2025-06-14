@@ -3,10 +3,14 @@ import registerLottie from '../../assets/lotties/register.json'
 import Lottie from 'lottie-react';
 import { AuthContext } from '../../contexts/authContext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
+import { Link, useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const Register = () => {
-    const {createUser} = use(AuthContext);
-    
+    const { createUser } = use(AuthContext);
+    const navigate = useNavigate();
+
+
     const handleRegister = e => {
         e.preventDefault();
         const form = e.target;
@@ -16,12 +20,20 @@ const Register = () => {
 
         // register user
         createUser(email, password)
-        .then(result => {
-            console.log(result.user);
-        })
-        .catch(err => {
-            console.log(err.code);
-        })
+            .then(() => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Successfully Registered!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/')
+
+            })
+            .catch(err => {
+                console.log(err.code);
+            })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
@@ -44,6 +56,11 @@ const Register = () => {
                             </fieldset>
                         </form>
                         <SocialLogin></SocialLogin>
+                        <div>
+                            <p>Already have an account?
+                                <Link to='/signIn' className='text-blue-500'> Sign In</Link>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

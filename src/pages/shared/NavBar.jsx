@@ -1,6 +1,10 @@
 import React, { use } from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../contexts/authContext/AuthContext';
+import logo from '../../assets/logo/logo.png'
+import { motion } from "motion/react";
+import Toggle from './Toggle';
+import Button from './Button';
 
 
 const NavBar = () => {
@@ -8,6 +12,19 @@ const NavBar = () => {
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
+        {/* for applicant  */}
+        {
+            user && <>
+                <li><NavLink to='/myApplications'>My applications</NavLink></li>
+            </>
+        }
+        {/* for requiter */}
+        {
+            user && <>
+                <li><NavLink to='/addJob'>Add Job</NavLink></li>
+                <li><NavLink to='/myPostedJobs'>My Posted Jobs</NavLink></li>
+            </>
+        }
     </>
 
     const handleSignOut = () => {
@@ -20,7 +37,11 @@ const NavBar = () => {
             })
     }
     return (
-        <div className='bg-base-100 shadow-sm'>
+        <motion.nav
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 2 }}
+            className='bg-blue-50 opacity-75 shadow-xl fixed top-0 w-full z-10'>
             <div className="navbar w-11/12 mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -34,26 +55,30 @@ const NavBar = () => {
 
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <div className='flex gap-1 items-center'>
+                        <img className='text-blue-500 w-10' src={logo} alt="" />
+                        <Link to='/' className='text-2xl font-bold'>Career Code</Link>
+                    </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {links}
                     </ul>
                 </div>
-                <div className="navbar-end">
+                <div className="navbar-end space-x-2">
+                    <Toggle></Toggle>
                     {
                         user ?
                             <button onClick={handleSignOut} className='btn'>Sign Out</button>
                             :
                             <>
-                                <NavLink to='/register' className='btn'>Register</NavLink>
-                                <NavLink to='/signIn' className='btn'>Sign In</NavLink>
+                                <NavLink to='/signIn'><Button label='Sign In'></Button></NavLink>
+
                             </>
                     }
                 </div>
             </div>
-        </div>
+        </motion.nav>
     );
 };
 
