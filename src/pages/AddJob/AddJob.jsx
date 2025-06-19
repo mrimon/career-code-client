@@ -31,7 +31,7 @@ const AddJob = () => {
         console.log(newJob);
 
         // sending newJob data to the server 
-        // fetch('http://localhost:3000/jobs', {
+        // fetch('https://career-code-server-five.vercel.app/jobs', {
         //     method: 'POST',
         //     headers: {
         //         "content-type" : "application/json"
@@ -41,7 +41,7 @@ const AddJob = () => {
         // .then(data => {
         //     console.log('after sending data to server',data);
         // })
-        axios.post('http://localhost:3000/jobs', newJob)
+        axios.post('https://career-code-server-five.vercel.app/jobs', newJob)
             .then(res => {
                 if (res.data.insertedId) {
                     Swal.fire({

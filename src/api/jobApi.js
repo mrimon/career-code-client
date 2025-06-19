@@ -1,4 +1,4 @@
 export const jobPostCreatedByPromise = email => {
-    return fetch(`http://localhost:3000/jobs/applications?email=${email}`)
+    return fetch(`https://career-code-server-five.vercel.app/jobs/applications?email=${email}`)
     .then(res => res.json())
 }

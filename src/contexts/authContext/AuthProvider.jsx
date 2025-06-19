@@ -35,18 +35,18 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            if(currentUser?.email){
-                const userData = {email: currentUser.email};
-                axios.post('http://localhost:3000/jwt', userData, {
-                    withCredentials: true
-                })
-                .then(res => {
-                    console.log('after token jwt' , res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-            }
+            // if(currentUser?.email){
+            //     const userData = {email: currentUser.email};
+            //     axios.post('https://career-code-server-five.vercel.app/jwt', userData, {
+            //         withCredentials: true
+            //     })
+            //     .then(res => {
+            //         console.log('after token jwt' , res.data);
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //     })
+            // }
             setLoading(false)
         })
         return () => {

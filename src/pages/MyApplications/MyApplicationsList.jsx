@@ -2,9 +2,8 @@ import React, { use, useState } from 'react';
 import JobApplicationRow from './JobApplicationRow';
 
 const MyApplicationsList = ({ applicationPromise }) => {
-    const myApplications = use(applicationPromise);
+    const myApplications = use(applicationPromise)
     const [applications, setApplications] = useState(myApplications)
-    console.log(myApplications);
 
     // delete application 
     const handleDeleteApplication = id => {
@@ -13,7 +12,7 @@ const MyApplicationsList = ({ applicationPromise }) => {
         const remainingApplications = applications.filter(application => application._id !== id);
         setApplications(remainingApplications)
         // delete from server 
-        fetch(`http://localhost:3000/applications/${id}`, {
+        fetch(`https://career-code-server-five.vercel.app/applications/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -24,7 +23,7 @@ const MyApplicationsList = ({ applicationPromise }) => {
     return (
         <div>
             <h1 className='text-center my-20 text-2xl md:text-4xl font-semibold'>
-                Job applied so far: {myApplications.length}
+                Job applied so far: {myApplications?.length}
             </h1>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -42,7 +41,7 @@ const MyApplicationsList = ({ applicationPromise }) => {
                     </thead>
                     <tbody>
                        {
-                        applications.map((application, index) => <JobApplicationRow
+                        applications?.map((application, index) => <JobApplicationRow
                         handleDeleteApplication={handleDeleteApplication}
                         application={application} index={index} key={index}></JobApplicationRow>)
                        }

@@ -25,7 +25,7 @@ const JobApply = () => {
         }
 
         // send applicant data to the server
-        axios.post('http://localhost:3000/applications', application)
+        axios.post('https://career-code-server-five.vercel.app/applications', application)
             .then(res => {
                 console.log("after sending applicant information", res.data);
                 Swal.fire({

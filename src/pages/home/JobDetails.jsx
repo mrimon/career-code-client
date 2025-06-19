@@ -27,7 +27,7 @@ const JobDetails = () => {
     const similarJobs = jobs?.filter(similar => similar._id !== jobInfo._id);
 
     useEffect(() => {
-        fetch('http://localhost:3000/jobs')
+        fetch('https://career-code-server-five.vercel.app/jobs')
             .then(res => res.json())
             .then(data => {
                 setJobs(data)

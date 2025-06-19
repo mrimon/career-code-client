@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from './Banner';
 import HotJobs from './HotJobs';
 
-const jobPromise = fetch('http://localhost:3000/jobs').then(res => res.json())
+const jobPromise = fetch('https://career-code-server-five.vercel.app/jobs').then(res => res.json())
 const Home = () => {
 
     return (
